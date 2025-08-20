@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parfümün - الصفحة الرئيسية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+/* -------------------- General Styling -------------------- */
+body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fdfaf7;
+    color: #333;
+}
+
+h1.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px;
+    color: #000;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    margin: 0;
+}
+
+/* -------------------- Header Section - New Layout -------------------- */
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    background: #ffffff;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+/* -------------------- Filters & Search -------------------- */
+.filter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.filter input, .filter select {
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fefefe;
+    min-width: 150px;
+}
+
+/* -------------------- Header Buttons -------------------- */
+
+.login-btn,
+.cart-btn {
+    background-color: #f8f8f8;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-family: 'Cairo', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none; /* لمنع الخط السفلي في حال كان رابطًا */
+    color: #000; /* تغيير لون الخط إلى الأسود */
+}
+
+.login-btn:hover, 
+.cart-btn:hover {
+    background-color: #e6e6e6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.cart-count {
+    background-color: #9b2226;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 50%;
+    margin-right: -10px;
+    position: relative;
+    top: -8px;
+    right: 5px;
+}
+.cart-btn {
+  background-color: #222;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background 0.3s ease;
+}
+
+.cart-btn:hover {
+  background-color: #444;
+}
+
+/* -------------------- Fixed Banner Image -------------------- */
+.fixed-banner {
+    width: 100%;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.fixed-banner img {
+    width: 100%;
+    display: block;
+}
+
+/* -------------------- Products Section -------------------- */
+.product-preview {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.product-card {
+    position: relative;
+    width: 280px;
+    padding: 15px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.3s, box-shadow 0.3s, border 0.3s;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.product-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    border-color: #9b2226;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #f8f8f8;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    display: none;
+    object-fit: contain;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.carousel img.active {
+    display: block;
+}
+
+.carousel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 18px;
+    transition: background 0.3s;
+}
+
+.carousel button:hover {
+    background: rgba(0,0,0,0.6);
+}
+
+.carousel .prev {
+    left: 10px;
+}
+
+.carousel .next {
+    right: 10px;
+}
+
+.product-card h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #222;
+    text-align: center;
+}
+
+.product-card .category,
+.product-card .price {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.product-card .price {
+    font-weight: bold;
+    color: #000;
+}
+
+.product-card .discount {
+    color: #d9534f;
+    font-weight: bold;
+}
+
+.info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.description {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+}
+
+.publish-date {
+    margin-top: auto;
+    font-size: 13px;
+    color: #999;
+    opacity: 0.8;
+}
+
+/* Cart Icon Button */
+.cart-icon-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(155, 34, 38, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .cart-icon-btn {
+    opacity: 1;
+}
+
+/* Favorite Icon Button */
+.favorite-icon-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #9b2226;
+    border: 1px solid #eee;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .favorite-icon-btn {
+    opacity: 1;
+}
+
+/* -------------------- Responsive Design -------------------- */
+@media (max-width: 768px) {
+    .header-bar {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    .filter {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+    .filter input, .filter select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+/* تأثير ظل ناعم على صور المنتجات */
+.carousel img:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+.footer-info-bar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .footer-info-bar {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-width: 150px;
+}
+
+.search-container input {
+    padding-right: 35px;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    color: #888;
+    font-size: 20px;
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="header-bar">
+        <h1 class="logo">Parfümün</h1>
+        <div class="header-content">
+            <div class="filter">
+            <div class="search-container">
+    <input type="text" id="search" placeholder="ابحث..." />
+    <span class="search-icon">🔍</span>
+            </div>
+                <select id="categoryFilter">
+                    <option value="all">الكل</option>
+                    <option value="رجالي">رجالي</option>
+                    <option value="نسائي">نسائي</option>
+                </select>
+                <select id="sortFilter">
+                    <option value="default">ترتيب افتراضي</option>
+                    <option value="most-expensive">الأغلى</option>
+                    <option value="least-expensive">الأرخص</option>
+                </select>
+            </div>
+            <div>
+             
+                    <button class="cart-btn">
+                        ❤️ المفضلة
+                    </button>
+                </a>
+                <a href="parfumen-cart.html" style="text-decoration: none;">
+                    <button class="cart-btn">
+                        🛒 السلة <span class="cart-count">0</span>
+                    </button>
+                </a>
+                <a href="add-card.html" style="text-decoration: none;">
+    <button class="cart-btn">➕ إضافة كارد</button>
+</a>
+
+<a href="delete-card.html" style="text-decoration: none;">
+    <button class="cart-btn">🗑 حذف كارد</button>
+</a>
+
+            </div>
+        </div>
+    </div>
+    
+    <div class="fixed-banner">
+        <img src="parfümün.html.jpg" alt="Parfümün Banner">
+    </div>
+
+    <div class="product-preview" id="productPreview"></div>
+</header>
+<script>
+    const cartCountElement = document.querySelector('.cart-count');
+    const productPreview = document.getElementById('productPreview');
+    const searchInput = document.getElementById('search');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortFilter = document.getElementById('sortFilter');
+
+    // ⛔️ لم يتم المساس بأي من أكواد localStorage بناءً على طلبك
+    let products = JSON.parse(localStorage.getItem('parfumen_products')) || [];
+
+    function updateCartCount() {
+        let cart = JSON.parse(localStorage.getItem('parfumen_cart')) || [];
+        let total = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        cartCountElement.textContent = total;
+    }
+    
+    function displayProducts() {
+        productPreview.innerHTML = '';
+        let filteredProducts = [...products];
+    
+        // فلترة حسب البحث
+        const term = searchInput.value.toLowerCase();
+        if (term) {
+            filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(term));
+        }
+    
+        // فلترة حسب الفئة
+        if (categoryFilter.value !== 'all') {
+            filteredProducts = filteredProducts.filter(p => p.category === categoryFilter.value);
+        }
+    
+        // ترتيب المنتجات
+        if (sortFilter.value === 'most-expensive') {
+            filteredProducts.sort((a, b) => b.price - a.price);
+        } else if (sortFilter.value === 'least-expensive') {
+            filteredProducts.sort((a, b) => a.price - b.price);
+        }
+    
+        // عرض المنتجات
+        filteredProducts.forEach((product) => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+    
+            // الكاروسيل للصور
+            const carousel = document.createElement('div');
+            carousel.className = 'carousel';
+            product.images.forEach((imgSrc, index) => {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                if (index === 0) img.classList.add('active');
+                carousel.appendChild(img);
+            });
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'prev'; prevBtn.innerHTML = '&#10094;';
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'next'; nextBtn.innerHTML = '&#10095;';
+            carousel.appendChild(prevBtn); carousel.appendChild(nextBtn);
+            card.appendChild(carousel);
+    
+            // معلومات المنتج
+            const title = document.createElement('h3');
+            title.textContent = product.name;
+            card.appendChild(title);
+    
+            const category = document.createElement('p');
+            category.className = 'category';
+            category.textContent = `الفئة: ${product.category}`;
+            card.appendChild(category);
+    
+            const price = document.createElement('p');
+            price.className = 'price';
+            price.textContent = `السعر: ${product.price}₺`;
+            card.appendChild(price);
+    
+            if (product.discount) {
+                const discount = document.createElement('p');
+                discount.className = 'discount';
+                discount.textContent = `سعر التخفيض: ${product.discount}₺`;
+                card.appendChild(discount);
+            }
+    
+            // وصف وتاريخ
+            const infoWrapper = document.createElement('div');
+            infoWrapper.className = 'info-wrapper';
+    
+            const desc = document.createElement('p');
+            desc.className = 'description';
+            desc.textContent = product.description;
+            infoWrapper.appendChild(desc);
+    
+            const publishDate = document.createElement('p');
+            publishDate.className = 'publish-date';
+            publishDate.textContent = `تاريخ النشر: ${product.publishDate}`;
+            infoWrapper.appendChild(publishDate);
+    
+            card.appendChild(infoWrapper);
+    
+            // زر المفضلة
+            const favoriteBtn = document.createElement('button');
+            favoriteBtn.className = 'favorite-icon-btn';
+            favoriteBtn.innerHTML = '❤️';
+            favoriteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let favorites = JSON.parse(localStorage.getItem('parfumen_favorites')) || [];
+                const existing = favorites.find(p => p.name === product.name && p.category === product.category);
+                if (!existing) {
+                    favorites.push(product);
+                    localStorage.setItem('parfumen_favorites', JSON.stringify(favorites));
+                    alert(`تمت إضافة "${product.name}" إلى المفضلة ❤️`);
+                } else {
+                    alert(`"${product.name}" موجود بالفعل في المفضلة.`);
+                }
+            });
+            card.appendChild(favoriteBtn);
+    
+            // زر السلة
+            const cartBtn = document.createElement('button');
+            cartBtn.className = 'cart-icon-btn';
+            cartBtn.innerHTML = '🛒';
+            cartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                let cart = JSON.parse(localStorage.getItem('parfumen_cart')) || [];
+                const existing = cart.find(p => p.name === product.name && p.category === product.category);
+                if (existing) {
+                    existing.quantity = (existing.quantity || 1) + 1;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+                localStorage.setItem('parfumen_cart', JSON.stringify(cart));
+                updateCartCount();
+                alert(`تمت إضافة "${product.name}" إلى السلة ✅`);
+            });
+            card.appendChild(cartBtn);
+    
+            // الانتقال لصفحة التفاصيل
+            card.addEventListener('click', () => {
+                localStorage.setItem('parfumen_selected_product', JSON.stringify(product));
+                window.location.href = 'parfümün-details.html';
+            });
+    
+            productPreview.appendChild(card);
+    
+            // وظائف الكاروسيل
+            const imgs = carousel.querySelectorAll('img');
+            let index = 0;
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                imgs[index].classList.remove('active');
+                index = (index - 1 + imgs.length) % imgs.length;
+                imgs[index].classList.add('active');
+            });
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                imgs[index].classList.remove('active');
+                index = (index + 1) % imgs.length;
+                imgs[index].classList.add('active');
+            });
+        });
+    }
+
+    // -------------------- Event Listeners --------------------
+    document.addEventListener('DOMContentLoaded', () => {
+        // إذا كانت المنتجات غير موجودة في localStorage، قم بحفظها
+        if (!localStorage.getItem('parfumen_products')) {
+            // هذا الجزء سيحتاج إلى المنتجات الافتراضية إذا لم تكن موجودة.
+            // سأفترض أنك لا تريدها.
+        } else {
+            // قم بتحديث المنتجات من localStorage
+            products.length = 0; // إفراغ المصفوفة
+            products.push(...JSON.parse(localStorage.getItem('parfumen_products')));
+        }
+        
+        updateCartCount();
+        displayProducts();
+    });
+
+    searchInput.addEventListener('input', displayProducts);
+    categoryFilter.addEventListener('change', displayProducts);
+    sortFilter.addEventListener('change', displayProducts);
+</script>
+<div class="footer-info-bar">
+    <p>🚚 شحن مجاني للطلبات فوق 200₺</p>
+    <p>🌟 جودة مضمونة وإرجاع سهل</p>
+    <p>📦 توصيل سريع خلال 3-5 أيام عمل</p>
+</div>
+</body>
+</html>

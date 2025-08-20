@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الشراء | Parfümün</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* -------------------- General Styling -------------------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #fdfaf7;
+            color: #333;
+            direction: rtl;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 44px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+            display: block;
+        }
+
+        h2.page-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #222;
+            border-bottom: 2px solid #9b2226;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* -------------------- Form Styling -------------------- */
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #9b2226;
+            outline: none;
+        }
+
+        .card-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 576px) {
+            .card-info {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card-info .form-group {
+            margin-bottom: 0;
+        }
+        
+        /* -------------------- Summary & Buttons -------------------- */
+        .summary-box {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        .summary-box p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .summary-box .final-price {
+            font-size: 24px;
+            color: #9b2226;
+        }
+
+        #payBtn {
+            width: 100%;
+            padding: 15px;
+            background-color: #9b2226;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        #payBtn:hover {
+            background-color: #7b1a1c;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="logo">Parfümün</a>
+
+    <div class="container">
+        <h2 class="page-title">إتمام الشراء</h2>
+        <form class="checkout-form" id="checkoutForm">
+            <div class="shipping-info">
+                <h3>معلومات الشحن</h3>
+                <div class="form-group">
+                    <label for="name">الاسم الكامل:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">العنوان الكامل:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+            </div>
+
+            <div class="payment-info">
+                <h3>معلومات الدفع</h3>
+                <div class="form-group">
+                    <label for="cardNumber">رقم البطاقة:</label>
+                    <input type="text" id="cardNumber" name="cardNumber" pattern="\d{16}" maxlength="16" placeholder="مثال: 1234567890123456" required>
+                </div>
+                <div class="card-info">
+                    <div class="form-group">
+                        <label for="expiryDate">تاريخ الانتهاء:</label>
+                        <input type="text" id="expiryDate" name="expiryDate" pattern="\d{2}/\d{2}" maxlength="5" placeholder="مثال: 01/25" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV:</label>
+                        <input type="text" id="cvv" name="cvv" pattern="\d{3}" maxlength="3" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-box">
+                <p>إجمالي الفاتورة: <span class="final-price" id="finalPrice">0₺</span></p>
+                <button type="submit" id="payBtn">ادفع الآن</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutForm = document.getElementById('checkoutForm');
+            const finalPriceEl = document.getElementById('finalPrice');
+            let cart = JSON.parse(localStorage.getItem('parfumen_cart')) || [];
+
+            function calculateTotalPrice() {
+                let total = cart.reduce((sum, item) => {
+                    const price = item.price || 0;
+                    const quantity = item.quantity || 1;
+                    return sum + (price * quantity);
+                }, 0);
+                finalPriceEl.textContent = `${total.toFixed(2)}₺`;
+            }
+
+            // عرض السعر الإجمالي عند تحميل الصفحة
+            calculateTotalPrice();
+
+            checkoutForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                // تحقق بسيط من أن السلة ليست فارغة قبل إتمام الدفع
+                if (cart.length === 0) {
+                    alert('لا توجد منتجات في سلتك لإتمام الشراء.');
+                    return;
+                }
+                
+                // هنا يمكن إضافة التحقق من صحة حقول النموذج بشكل أكثر تفصيلاً
+                // ولكن للتبسيط، سنعتبر أن الحقول "required" كافية للآن.
+
+                // محاكاة عملية الدفع الناجحة
+                alert('تمت عملية الدفع بنجاح! شكراً لتسوقك 💐');
+                
+                // إفراغ السلة بعد إتمام الشراء
+                localStorage.setItem('parfumen_cart', JSON.stringify([]));
+
+                // إعادة توجيه المستخدم إلى الصفحة الرئيسية
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
